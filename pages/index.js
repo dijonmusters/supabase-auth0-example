@@ -1,9 +1,10 @@
 import styles from "../styles/Home.module.css";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import { getSupabase } from "../utils/supabase";
+import Link from "next/link";
 import { useState } from "react";
 
-const Index = ({ todos, user }) => {
+const Index = ({ user, todos }) => {
   const [content, setContent] = useState("");
   const [allTodos, setAllTodos] = useState([...todos]);
 
@@ -20,6 +21,12 @@ const Index = ({ todos, user }) => {
 
   return (
     <div className={styles.container}>
+      <p>
+        Welcome {user.name}!{" "}
+        <Link href="/api/auth/logout">
+          <a>Logout</a>
+        </Link>
+      </p>
       <form onSubmit={handleSubmit}>
         <input onChange={(e) => setContent(e.target.value)} value={content} />
         <button>Add</button>
